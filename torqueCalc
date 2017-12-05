@@ -1,0 +1,18 @@
+// Hx711.DOUT - pin #A2
+// Hx711.SCK - pin #A3
+
+#include <Hx711.h>
+#define k (-0.08*9.81)
+#define conv (36.70047)// conversion factor can be modified if we get more precise scales in the pits
+Hx711 scale(A2, A3);
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  float torque = conv*(scale.getGram()/2000)*k;
+  Serial.print( torque,5);
+  Serial.println(" N.m");
+  delay(200);
+}
